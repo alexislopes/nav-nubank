@@ -1,14 +1,8 @@
 <template>
   <div class="nav__nb__container">
-    <div class="nav__nb__item" @click="page = 'transactions'" :class="{'active': page === 'transactions'}">
-      <Transactions class="text-gray" />
-    </div>
-    <div class="nav__nb__item" @click="page = 'investments'" :class="{'active': page === 'investments'}">
-      <DollarSign class="text-gray" />
-    </div>
-    <div class="nav__nb__item" @click="page = 'store'" :class="{'active': page === 'store'}">
-      <Bag class="text-gray" />
-    </div>
+      <Transactions class="nav__nb__item" @click="setPage('transactions')" :class="{ 'active': isActive('transactions') }" />
+      <DollarSign class="nav__nb__item" @click="setPage('investments')" :class="{ 'active': isActive('investments') }" />
+      <Bag class="nav__nb__item" @click="setPage('store')" :class="{ 'active': isActive('store') }" />
   </div>
 </template>
 
@@ -18,7 +12,15 @@ import Bag from "./icons/Bag.vue";
 import DollarSign from './icons/DollarSign.vue';
 import Transactions from './icons/Transactions.vue';
 
-const page = ref('transactions')
+const page = ref('transactions');
+
+function isActive(value) {
+  return value === page.value;
+}
+
+function setPage(value) {
+  page.value = value
+}
 </script>
 
 <style>
@@ -35,10 +37,10 @@ const page = ref('transactions')
 }
 
 .nav__nb__item.active svg {
-  @apply text-primary
+  @apply text-primary animate-[pulse_0.3s_ease-in]
 }
 
-.nav__nb__item.active svg { 
-  @apply animate-[pulse_0.3s_ease-in]
+.nav__nb__item svg {
+  @apply text-gray
 }
 </style>
